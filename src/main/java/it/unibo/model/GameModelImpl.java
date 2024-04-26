@@ -8,6 +8,8 @@ import it.unibo.controller.GameController;
 import it.unibo.model.collision.CollisionHandler;
 import it.unibo.model.collision.CollisionHandlerImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.DisapperingPlatform;
+import it.unibo.model.entity.obstacles.DynamicSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
@@ -49,8 +51,18 @@ public class GameModelImpl implements GameModel {
     }
 
     @Override
+    public List<DynamicSaw> getDynamicSaws() {
+        return this.level.getDynamicSaws();
+    }
+
+    @Override
     public final List<Platform> getPlatforms() {
         return this.level.getPlatforms();
+    }
+
+    @Override
+    public final List<DisapperingPlatform> getDisapperingPlatforms() {
+        return this.level.getDisapperingPlatforms();
     }
 
     @Override

@@ -9,6 +9,8 @@ import it.unibo.model.tiles.manager.TileManager;
 import it.unibo.model.tiles.manager.factory.TileManagerFactoryImpl;
 import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.DisapperingPlatform;
+import it.unibo.model.entity.obstacles.DynamicSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
@@ -83,8 +85,18 @@ public class LevelImpl implements Level {
     }
 
     @Override
+    public final List<DisapperingPlatform> getDisapperingPlatforms() {
+        return this.tileManager.getDisapperingPlatforms();
+    }
+
+    @Override
     public final List<CircularSaw> getSaws() {
         return this.tileManager.getSaws();
+    }
+
+    @Override
+    public List<DynamicSaw> getDynamicSaws() {
+        return this.tileManager.getDynamicSaws();
     }
 
     @Override

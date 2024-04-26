@@ -6,6 +6,7 @@ import java.util.Optional;
 import it.unibo.commons.Point2D;
 import it.unibo.model.GameModel;
 import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.DisapperingPlatform;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
@@ -47,6 +48,8 @@ public interface GameController {
      * @return A list of Platform.
      */
     List<Platform> getPlatforms();
+
+    List<DisapperingPlatform> getDisapperingPlatforms();
 
     /**
      * Returns the BandageGirl parsed from the TMX file.

@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.DisapperingPlatform;
+import it.unibo.model.entity.obstacles.DynamicSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
@@ -23,12 +25,15 @@ public interface TileManager {
      */
     List<Platform> getPlatforms();
 
+    List<DisapperingPlatform> getDisapperingPlatforms();
     /**
      * Returns the List of CircularSaws parsed from the TMX file.
      *
      * @return The List of CircularSaws parsed from the TMX file.
      */
     List<CircularSaw> getSaws();
+
+    List<DynamicSaw> getDynamicSaws();
 
     /**
      * Returns the number of columns in the TileMap.
@@ -80,6 +85,8 @@ public interface TileManager {
      */
     void setSaw(CircularSaw circularSaw);
 
+    void setDynamicSaw(DynamicSaw dynamicSaw);
+
     /**
      * Sets a Platform in the TileMap.
      *
@@ -87,6 +94,7 @@ public interface TileManager {
      */
     void setPlatform(Platform platform);
 
+    void setDisapperingPlaform(DisapperingPlatform disapperingPlatform);
     /**
      * Sets the coordinates of MeatBoy in the TileMap.
      *

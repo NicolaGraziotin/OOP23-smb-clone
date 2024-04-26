@@ -10,6 +10,8 @@ public enum GameObjectType {
      */
     SAWS("saws"),
 
+    DISAPPERINGPLATFORM("disapperingPlatform"),
+    
     /**
      * Object type: Platforms.
      */

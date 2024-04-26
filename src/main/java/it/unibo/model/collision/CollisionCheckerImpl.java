@@ -18,6 +18,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
 
     private final List<CircularHitbox> sawsHitboxs;
     private final List<RectangleHitbox> platformsHitboxs;
+    private final List<RectangleHitbox> disapperingPlatformHitboxs;
     private final RectangleHitbox bandageGirlHitbox;
     private final MeatBoy meatBoy;
 
@@ -44,9 +45,14 @@ public class CollisionCheckerImpl implements CollisionChecker {
         this.platformsHitboxs = collisionHandler.getGameModel().getPlatforms().stream()
                 .map(t -> t.getHitbox())
                 .toList();
+        this.disapperingPlatformHitboxs = collisionHandler.getGameModel().getDisapperingPlatforms().stream()
+                .map(t -> t.getHitbox())
+                .toList();
         this.bandageGirlHitbox = collisionHandler.getGameModel().getBandageGirl().getHitbox();
         this.meatBoy = collisionHandler.getGameModel().getMeatBoy();
         this.state = CollisionState.GROUND;
+        //System.out.println(platformsHitboxs);
+        System.out.println(disapperingPlatformHitboxs);
     }
 
     /**
@@ -54,10 +60,13 @@ public class CollisionCheckerImpl implements CollisionChecker {
      */
     @Override
     public void isColliding() {
-        if (this.platformsHitboxs.stream()
+        if ((this.platformsHitboxs.stream()
                 .map(h -> h.getHitbox())
                 .filter(h -> h.intersects(meatBoy.getHitbox().getHitbox()))
-                .count() > 0) {
+                .count() > 0 ) || (this.disapperingPlatformHitboxs.stream()
+                .map(h -> h.getHitbox())
+                .filter(h -> h.intersects(meatBoy.getHitbox().getHitbox()))
+                .count() > 0 ))  {
             state = CollisionState.GROUND;
         } else {
             state = CollisionState.AIR;

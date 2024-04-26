@@ -11,6 +11,7 @@ import it.unibo.commons.Constants;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.documentextractor.TagType;
 import it.unibo.model.entity.obstacles.CircularSawImpl;
+import it.unibo.model.entity.obstacles.DisapperingPlatformImpl;
 import it.unibo.model.entity.obstacles.PlatformImpl;
 import it.unibo.model.tiles.loader.manager.GameObjectType;
 import it.unibo.model.tiles.loader.manager.TileLoaderManager;
@@ -60,6 +61,7 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
     @Override
     public void load() {
         this.loadObjects(GameObjectType.SAWS);
+        this.loadObjects(GameObjectType.DISAPPERINGPLATFORM);
         this.loadObjects(GameObjectType.PLATFORMS);
     }
 
@@ -101,6 +103,15 @@ public class TileLoaderGameObjectsImpl implements TileLoaderGameObjects {
                                         x * Constants.SCALE_PROPORTION,
                                         y * Constants.SCALE_PROPORTION,
                                         (int) (width * Constants.SCALE_PROPORTION)));
+                                } else if (GameObjectType.DISAPPERINGPLATFORM.equals(nameObjects)) {
+                                    this.tileLoaderManager.setDisapperingPlatform(new DisapperingPlatformImpl(
+                                        x * Constants.SCALE_PROPORTION,
+                                        y * Constants.SCALE_PROPORTION,
+                                        (int) (width * Constants.SCALE_PROPORTION),
+                                        (int) (Integer.parseInt(
+                                            this.tileLoaderManager.trim(
+                                                objectElement
+                                                    .getAttribute(TagType.HEIGHT.toString()))) * Constants.SCALE_PROPORTION)));
                                 } else {
                                     this.tileLoaderManager.setPlatform(new PlatformImpl(
                                         x * Constants.SCALE_PROPORTION,

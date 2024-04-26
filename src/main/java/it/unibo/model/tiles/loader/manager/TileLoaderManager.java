@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import it.unibo.commons.Point2D;
 import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.DisapperingPlatform;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.tiles.Tile;
 
@@ -56,6 +57,8 @@ public interface TileLoaderManager {
      * @param platform The Platform to set.
      */
     void setPlatform(Platform platform);
+
+    void setDisapperingPlatform(DisapperingPlatform disapperingPlatform);
 
     /**
      * Sets the coordinates of MeatBoy in the TileMap.

@@ -8,6 +8,7 @@ import it.unibo.commons.Point2D;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.DisapperingPlatform;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.tiles.Tile;
 import it.unibo.model.tiles.loader.factory.gameobjects.TileLoaderGameObjectsFactoryImpl;
@@ -86,6 +87,11 @@ public class TileLoaderManagerImpl implements TileLoaderManager {
     @Override
     public final void setPlatform(final Platform platform) {
         this.tileManager.setPlatform(platform);
+    }
+
+    @Override
+    public final void setDisapperingPlatform(final DisapperingPlatform disapperingPlatform) {
+        this.tileManager.setDisapperingPlaform(disapperingPlatform);
     }
 
     @Override

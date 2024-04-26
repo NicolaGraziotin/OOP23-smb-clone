@@ -10,6 +10,8 @@ import it.unibo.commons.Point2D;
 import it.unibo.model.documentextractor.DocumentExtractor;
 import it.unibo.model.documentextractor.factory.DocumentExtractorFactoryImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.DisapperingPlatform;
+import it.unibo.model.entity.obstacles.DynamicSaw;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.player.MeatBoyImpl;
@@ -27,7 +29,9 @@ public class TileManagerImpl implements TileManager {
 
     private final List<List<Optional<Tile>>> stationary;
     private final List<Platform> platforms;
+    private final List<DisapperingPlatform> disapperingPlatforms;
     private final List<CircularSaw> circularSaws;
+    private final List<DynamicSaw> dynamicSaws;
     private final List<Tile> tiles;
     private final MeatBoy meatBoy;
     private final BandageGirl bandageGirl;
@@ -41,7 +45,9 @@ public class TileManagerImpl implements TileManager {
      */
     public TileManagerImpl(final String tmx) {
         this.platforms = new ArrayList<>();
+        this.disapperingPlatforms = new ArrayList<>();
         this.circularSaws = new ArrayList<>();
+        this.dynamicSaws = new ArrayList<>();
         this.stationary = new ArrayList<>();
         this.tiles = new TileSetFactoryImpl()
             .createTileSet(tmx).read();
@@ -62,8 +68,18 @@ public class TileManagerImpl implements TileManager {
     }
 
     @Override
+    public final List<DisapperingPlatform> getDisapperingPlatforms() {
+        return Collections.unmodifiableList(this.disapperingPlatforms);
+    }
+
+    @Override
     public final List<CircularSaw> getSaws() {
         return Collections.unmodifiableList(this.circularSaws);
+    }
+
+    @Override
+    public List<DynamicSaw> getDynamicSaws() {
+        return Collections.unmodifiableList(this.dynamicSaws);
     }
 
     @Override
@@ -106,8 +122,18 @@ public class TileManagerImpl implements TileManager {
     }
 
     @Override
+    public void setDynamicSaw(DynamicSaw dynamicSaw) {
+        this.dynamicSaws.add(dynamicSaw);
+    }
+
+    @Override
     public final void setPlatform(final Platform platform) {
         this.platforms.add(platform);
+    }
+
+    @Override
+    public final void setDisapperingPlaform(final DisapperingPlatform disapperingPlatform) {
+        this.platforms.add(disapperingPlatform);
     }
 
     @Override

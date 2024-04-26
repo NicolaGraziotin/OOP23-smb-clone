@@ -11,6 +11,7 @@ import it.unibo.commons.Point2D;
 import it.unibo.model.GameModel;
 import it.unibo.model.GameModelImpl;
 import it.unibo.model.entity.obstacles.CircularSaw;
+import it.unibo.model.entity.obstacles.DisapperingPlatform;
 import it.unibo.model.entity.obstacles.Platform;
 import it.unibo.model.entity.player.MeatBoy;
 import it.unibo.model.entity.target.BandageGirl;
@@ -103,6 +104,11 @@ public class GameControllerImpl implements GameController {
     @Override
     public final List<Platform> getPlatforms() {
         return this.gameModel.getPlatforms();
+    }
+
+    @Override
+    public final List<DisapperingPlatform> getDisapperingPlatforms() {
+        return this.gameModel.getDisapperingPlatforms();
     }
 
     @Override
