@@ -133,7 +133,7 @@ public class TileManagerImpl implements TileManager {
 
     @Override
     public final void setDisapperingPlaform(final DisapperingPlatform disapperingPlatform) {
-        this.platforms.add(disapperingPlatform);
+        this.disapperingPlatforms.add(disapperingPlatform);
     }
 
     @Override
