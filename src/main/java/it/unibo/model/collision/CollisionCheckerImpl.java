@@ -51,8 +51,6 @@ public class CollisionCheckerImpl implements CollisionChecker {
         this.bandageGirlHitbox = collisionHandler.getGameModel().getBandageGirl().getHitbox();
         this.meatBoy = collisionHandler.getGameModel().getMeatBoy();
         this.state = CollisionState.GROUND;
-        //System.out.println(platformsHitboxs);
-        System.out.println(disapperingPlatformHitboxs);
     }
 
     /**
@@ -60,14 +58,16 @@ public class CollisionCheckerImpl implements CollisionChecker {
      */
     @Override
     public void isColliding() {
-        if ((this.platformsHitboxs.stream()
+        if (this.platformsHitboxs.stream()
                 .map(h -> h.getHitbox())
                 .filter(h -> h.intersects(meatBoy.getHitbox().getHitbox()))
-                .count() > 0 ) || (this.disapperingPlatformHitboxs.stream()
-                .map(h -> h.getHitbox())
-                .filter(h -> h.intersects(meatBoy.getHitbox().getHitbox()))
-                .count() > 0 ))  {
+                .count() > 0 )  {
             state = CollisionState.GROUND;
+        } else if (this.disapperingPlatformHitboxs.stream()
+                        .map(h -> h.getHitbox())
+                        .filter(h -> h.intersects(meatBoy.getHitbox().getHitbox()))
+                        .count() > 0 ) {
+            state = CollisionState.DISAPPERING_PLAT;         
         } else {
             state = CollisionState.AIR;
         }
@@ -80,6 +80,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
         if (this.bandageGirlHitbox.getHitbox().intersects(meatBoy.getHitbox().getHitbox())) {
             state = CollisionState.BANDAGE_GIRL;
         }
+        System.out.println(state);
     }
 
     /**
@@ -120,7 +121,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
     private void collidingWall(final double speed) {
         this.meatBoy.setX(this.meatBoy.getX() - speed);
         isColliding();
-        if (state.equals(CollisionState.GROUND)) {
+        if (state.equals(CollisionState.GROUND) || state.equals(CollisionState.DISAPPERING_PLAT)) {
             state = CollisionState.WALL;
             this.meatBoy.setX(this.meatBoy.getX() + speed);
         }
@@ -131,7 +132,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
         if (jump && !upperBound && jumpHeight < MeatBoyImpl.MAX_JUMP_HEIGHT) {
             this.meatBoy.setY(this.meatBoy.getY() - MeatBoyImpl.JUMP_SPEED);
             isColliding();
-            if (state.equals(CollisionState.GROUND)) {
+            if (state.equals(CollisionState.GROUND) || state.equals(CollisionState.DISAPPERING_PLAT)) {
                 this.meatBoy.setY(this.meatBoy.getY() + MeatBoyImpl.JUMP_SPEED);
             }
             jumpHeight += MeatBoyImpl.JUMP_SPEED;
@@ -140,7 +141,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
             if (state.equals(CollisionState.AIR)) {
                 this.meatBoy.setY(this.meatBoy.getY() + MeatBoyImpl.FALLING_SPEED);
                 isColliding();
-                if (state.equals(CollisionState.GROUND)) {
+                if (state.equals(CollisionState.GROUND) || state.equals(CollisionState.DISAPPERING_PLAT)) {
                     this.meatBoy.setY(this.meatBoy.getY() - MeatBoyImpl.FALLING_SPEED);
                     jumpHeight = 0;
                 }
@@ -152,7 +153,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
                     this.meatBoy.setX(this.meatBoy.getX() - 1);
                 }
                 isColliding();
-                if (state.equals(CollisionState.GROUND)) {
+                if (state.equals(CollisionState.GROUND) || state.equals(CollisionState.DISAPPERING_PLAT)) {
                     state = CollisionState.WALL;
                     if (moveRight) {
                         this.meatBoy.setX(this.meatBoy.getX() - 1);
@@ -223,6 +224,12 @@ public class CollisionCheckerImpl implements CollisionChecker {
         this.moveRight = false;
         this.jump = false;
         this.state = CollisionState.GROUND;
+    }
+
+    @Override
+    public void disableDisapperingPlatform() {
+        //sposta hitbox fuori dallo schermo
+        this.disapperingPlatformHitboxs.clear();
     }
 
     private void setMoveLeft(final boolean moveLeft) {

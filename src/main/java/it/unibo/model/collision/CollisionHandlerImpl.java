@@ -43,7 +43,9 @@ public class CollisionHandlerImpl implements CollisionHandler {
             if (collisionChecker.getState().equals(CollisionChecker.CollisionState.SAW)) {
                 gameModel.getMeatBoy().setX(gameModel.getMeatBoyStartCoord().getX());
                 gameModel.getMeatBoy().setY(gameModel.getMeatBoyStartCoord().getY());
-                gameModel.died();
+                gameModel.died(); 
+            } else if (collisionChecker.getState().equals(CollisionChecker.CollisionState.DISAPPERING_PLAT)) {
+                collisionChecker.disableDisapperingPlatform();
             } else if (collisionChecker.getState().equals(CollisionChecker.CollisionState.BANDAGE_GIRL)) {
                 gameModel.victory();
             }

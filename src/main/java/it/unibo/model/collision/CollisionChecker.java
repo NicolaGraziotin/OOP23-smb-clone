@@ -9,7 +9,7 @@ public interface CollisionChecker {
     /**
      * Enum with the possible interactions state of MeatBoy entity.
      */
-    enum CollisionState { GROUND, WALL, AIR, SAW, BANDAGE_GIRL, FALL }
+    enum CollisionState { GROUND, WALL, AIR, SAW, BANDAGE_GIRL, FALL, DISAPPERING_PLAT }
 
     /**
      * Check if MeatBoy collides with any obstacols in the level map.
@@ -55,4 +55,6 @@ public interface CollisionChecker {
      * This method is responsible for setting up or resetting the various states of the game.
      */
     void initializeStates();
+
+    void disableDisapperingPlatform();
 }
