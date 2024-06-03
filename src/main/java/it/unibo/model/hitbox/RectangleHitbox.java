@@ -40,4 +40,9 @@ public class RectangleHitbox implements Hitbox<Rectangle> {
         g.setColor(Color.MAGENTA);
         g.draw(hitbox);
     }
+
+    //vedere se inserire il metodo nella interfaccia
+    public final void moveHitbox(final double xMouvment, final double yMouvment) {
+        this.hitbox.setLocation((int)(hitbox.getX() + xMouvment), (int)(hitbox.getY() + yMouvment));
+    }
 }
