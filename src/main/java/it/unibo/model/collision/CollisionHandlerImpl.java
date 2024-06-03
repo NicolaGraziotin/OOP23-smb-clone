@@ -88,4 +88,9 @@ public class CollisionHandlerImpl implements CollisionHandler {
     public void initializeStates() {
         this.collisionChecker.initializeStates();
     }
+
+    @Override
+    public void restartDisappearingHitbox() {
+        this.collisionChecker.enableDisapperingPlatform();
+    }
 }

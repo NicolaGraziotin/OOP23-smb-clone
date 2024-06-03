@@ -45,4 +45,6 @@ public interface CollisionHandler {
      * This method is responsible for setting up or resetting the various states of the game.
      */
     void initializeStates();
+
+    void restartDisappearingHitbox();
 }
