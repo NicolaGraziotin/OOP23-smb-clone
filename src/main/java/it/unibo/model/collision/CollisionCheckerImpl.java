@@ -9,6 +9,8 @@ import it.unibo.model.hitbox.CircularHitbox;
 import it.unibo.model.hitbox.RectangleHitbox;
 
 import java.awt.event.KeyEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Implementation of CollisionChecker interface rapresenting the 
@@ -31,6 +33,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
     private boolean upperBound;
 
     private CollisionState state;
+    private PlatformState platState;
     private int jumpHeight;
 
     /**
@@ -51,6 +54,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
         this.bandageGirlHitbox = collisionHandler.getGameModel().getBandageGirl().getHitbox();
         this.meatBoy = collisionHandler.getGameModel().getMeatBoy();
         this.state = CollisionState.GROUND;
+        this.platState = PlatformState.UNTOUCHED;
     }
 
     /**
@@ -67,7 +71,7 @@ public class CollisionCheckerImpl implements CollisionChecker {
                         .map(h -> h.getHitbox())
                         .filter(h -> h.intersects(meatBoy.getHitbox().getHitbox()))
                         .count() > 0 ) {
-            state = CollisionState.DISAPPERING_PLAT;         
+            state = CollisionState.DISAPPERING_PLAT;      
         } else {
             state = CollisionState.AIR;
         }
@@ -224,13 +228,37 @@ public class CollisionCheckerImpl implements CollisionChecker {
         this.moveRight = false;
         this.jump = false;
         this.state = CollisionState.GROUND;
+        this.platState = PlatformState.UNTOUCHED;
     }
 
     @Override
     public void disableDisapperingPlatform() {
-        //sposta hitbox fuori dallo schermo
-        this.disapperingPlatformHitboxs.clear();
+        if (platState.equals(PlatformState.UNTOUCHED)) {
+            this.platState = PlatformState.TOUCHED;   
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    for (RectangleHitbox rectangleHitbox : disapperingPlatformHitboxs) {
+                        rectangleHitbox.moveHitbox(100000,100000);
+                    }
+                    timer.cancel(); // Cancella il timer dopo l'esecuzione
+                }
+                
+            }, 3000); 
+        }   
     }
+    
+    @Override
+    public void enableDisapperingPlatform() {
+        if (platState.equals(PlatformState.TOUCHED)) {
+            for (RectangleHitbox rectangleHitbox : disapperingPlatformHitboxs) {
+                rectangleHitbox.moveHitbox(-100000, -100000);
+            }
+        } 
+    }
+
+
 
     private void setMoveLeft(final boolean moveLeft) {
         this.moveLeft = moveLeft;

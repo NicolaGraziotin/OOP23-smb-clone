@@ -11,6 +11,8 @@ public interface CollisionChecker {
      */
     enum CollisionState { GROUND, WALL, AIR, SAW, BANDAGE_GIRL, FALL, DISAPPERING_PLAT }
 
+    enum PlatformState { TOUCHED, UNTOUCHED }
+
     /**
      * Check if MeatBoy collides with any obstacols in the level map.
      */
@@ -57,4 +59,6 @@ public interface CollisionChecker {
     void initializeStates();
 
     void disableDisapperingPlatform();
+
+    void enableDisapperingPlatform();
 }
