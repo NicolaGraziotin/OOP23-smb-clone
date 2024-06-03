@@ -120,6 +120,7 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public void died() {
+        this.collisionHandler.restartDisappearingHitbox();
         initializeCoords();
         this.gameController.isDead();
     }

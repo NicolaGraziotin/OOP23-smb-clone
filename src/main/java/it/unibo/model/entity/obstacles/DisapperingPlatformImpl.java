@@ -1,6 +1,6 @@
 package it.unibo.model.entity.obstacles;
 
-public class DisapperingPlatformImpl extends PlatformImpl implements DisapperingPlatform{
+public class DisapperingPlatformImpl extends PlatformImpl implements DisapperingPlatform{ 
     private boolean visible;
 
     public DisapperingPlatformImpl(double x, double y, int width, int height) {
